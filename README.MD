@@ -15,7 +15,7 @@
 
 ### Regras da aplicação
 
-[] Deve ser possível cadastrar um pet, contendo as seguintes informações
+- [] Deve ser possível cadastrar um pet, contendo as seguintes informações
     - Nome
     - Sobre
     - Idade
