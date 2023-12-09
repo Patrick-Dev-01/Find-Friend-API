@@ -4,6 +4,11 @@ import { randomUUID } from 'node:crypto';
 
 export class InMemoryOrgsRepository implements OrgsRepository{
     public items: Org[] = [];
+    
+    async searchManyByUfCity(uf: string, city: string){
+        const orgs = this.items.filter(org => org.uf === uf && org.city === city);
+        return orgs;
+    }
 
     async findByEmail(email: string) {
         const org = this.items.find(org => org.email === email);

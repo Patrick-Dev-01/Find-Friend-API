@@ -3,6 +3,7 @@ import { fastifyJwt } from '@fastify/jwt';
 import { orgsRoutes } from "./http/controllers/orgs/routes";
 import { ZodError } from "zod";
 import { env } from "./env";
+import { fastifyCookie } from "@fastify/cookie";
 
 const app = fastify();
 
@@ -11,13 +12,16 @@ app.register(orgsRoutes);
 app.register(fastifyJwt, {
     secret: env.JWT_SECRET,
     sign: {
-        expiresIn: '60m'
+        expiresIn: '1hr'
     }
 });
 
+// Setting cookie on app
+app.register(fastifyCookie);
+
 // Fastify Error Handler
 app.setErrorHandler((error, request, reply) => {
-    // Validation Error
+    // Zod Validation Error
     if(error instanceof ZodError){
         return reply.status(400).send({ message: 'Validation Issues', issues: error.format() });
     }

@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Org {
   id            String @id @default(uuid())
   name          String
@@ -18,19 +23,25 @@ model Org {
   number        Int
   city          String
   uf            String
+
+  pets Pet[]
+
+  @@map("orgs")
 }
 
-// model Pet {
-//   id                  String @id @default(uuid())
-//   name                String
-//   about               String
-//   age                 Int
-//   energy_level        String
-//   independencie_level String
-//   environment         String
-// }
+model Pet {
+  id                  String   @id @default(uuid())
+  name                String
+  about               String
+  age                 String
+  port                String
+  energy_level        String
+  independencie_level String
+  environment         String
+  created_at          DateTime @default(now())
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  @@map("pets")
 }
