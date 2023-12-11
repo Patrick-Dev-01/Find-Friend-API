@@ -42,3 +42,8 @@
 
 ### Create Docker Postgres Database
 - docker run --name ContainerName -e POSTGRES_USERNAME=user -e POSTGRESQL_PASSWORD=password -e POSTGRESQL_DATABASE=database -p port:port bitnami/postgresql
+
+### Use Another test environment
+
+- "npm link" inside the environment folder
+- "npm link" in Src folder, to install the environment test
