@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run --dir src/services",
+    "test": "vitest run",
     "test:watch": "vitest --dir src/services",
     "watch": "vitest --dir src/services",
     "dev": "tsx watch src/server.ts",
+    "test:e2e": "vitest run --dir src/http",
     "build": "tsup src --out-dir build"
   },
   "keywords": [],
@@ -16,7 +17,9 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.10.4",
+    "@types/supertest": "^2.0.16",
     "prisma": "^5.7.0",
+    "supertest": "^6.3.3",
     "tsup": "^8.0.1",
     "tsx": "^4.6.2",
     "typescript": "^5.3.3",

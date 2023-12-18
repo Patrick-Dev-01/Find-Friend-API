@@ -4,10 +4,12 @@ import { orgsRoutes } from "./http/controllers/orgs/routes";
 import { ZodError } from "zod";
 import { env } from "./env";
 import { fastifyCookie } from "@fastify/cookie";
+import { petsRoutes } from "./http/controllers/pets/routes";
 
 const app = fastify();
 
 app.register(orgsRoutes);
+app.register(petsRoutes);
 
 app.register(fastifyJwt, {
     secret: env.JWT_SECRET,

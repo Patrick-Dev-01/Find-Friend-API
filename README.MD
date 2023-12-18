@@ -23,11 +23,12 @@
     - Nivel de Energia
     - Nivel de Independência
     - Ambiente
-- [] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
-- [] Deve ser possível filtrar pets por suas características
+- [x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
+- [x] Deve ser possível filtrar pets por suas características
 - [x] Deve ser possível visualizar detalhes de um pet para adoção
 - [x] Deve ser possível se cadastrar como uma ORG
 - [x] Deve ser possível realizar login como uma ORG   
+- [] (PLUS) Salvar uma foto do pet no S3 da AWS 
 
 ### Regras de negócio
 
@@ -36,7 +37,7 @@
 - [x] Um pet deve estar ligado a uma ORG
 - [] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
 - [x] Todos os filtros, além da cidade, são opcionais
-- [] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
+- [x] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 
 ## Commands reminder
 
@@ -47,3 +48,5 @@
 
 - "npm link" inside the environment folder
 - "npm link" in Src folder, to install the environment test
+- "main": need to have the same name of execution file
+- Setup the the "vite.config.ts" file

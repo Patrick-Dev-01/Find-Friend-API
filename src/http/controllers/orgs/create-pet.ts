@@ -26,5 +26,5 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply){
         
     }
 
-    reply.status(200).send({ message: "Success Authenticated" });
+    reply.status(201).send({ message: "Success Authenticated" });
 }
