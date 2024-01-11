@@ -8,6 +8,7 @@ export class PrismaPetsRepository implements PetsRepository{
 
         return pet;
     }
+    
     async findById(id: string){
         const pet = await prisma.pet.findFirst({
             where: {
@@ -37,6 +38,8 @@ export class PrismaPetsRepository implements PetsRepository{
 
         strSQL += `AND p.age = ${age} AND p.port = ${port} AND p.energy_level = ${energy_level} 
             AND p.independecie_level = ${independecie_level} AND p.environment = ${environment}`;
+
+        console.log(strSQL)
         
         const pets = await prisma.$queryRaw<Pet[]>`${strSQL}`;
 

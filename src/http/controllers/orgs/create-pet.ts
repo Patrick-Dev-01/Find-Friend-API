@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { PrismaPetsRepository } from "../../../repositories/prisma/prisma-pets-repository";
+import { UnspectedError } from "../../../services/errors/unspected-Error";
 
 export async function createPet(request: FastifyRequest, reply: FastifyReply){
     const createPetSchema = z.object({
@@ -21,10 +22,14 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply){
     try {
         const prismaPetsRespository = new PrismaPetsRepository();
 
-        await prismaPetsRespository.create({ name, about, age, port, energy_level, independencie_level, environment, org_id  })
-    } catch (err) {
+        const pet = await prismaPetsRespository.create({ name, about, age, port, energy_level, independencie_level, environment, org_id  })
         
+        reply.status(201).send(pet);
+
+    } catch (err) {
+        if(err instanceof UnspectedError) return reply.status(409).send({ message: err.message });
+
+        throw err;
     }
 
-    reply.status(201).send({ message: "Success Authenticated" });
 }

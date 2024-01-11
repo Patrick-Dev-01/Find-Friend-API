@@ -23,7 +23,7 @@ describe('Fetch Pets Service', () => {
             password: '123',
             address: 'Endereço teste',
             cep: '00000001',
-            city: 'Estado Teste',
+            city: 'Cidade teste',
             neighborhood: 'bairro Teste',
             complement: '',
             number: 1,
@@ -61,7 +61,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by UF and City', async () => {  
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: '', port: '', energy_level: '', independecie_level: '', environment: '' 
+            uf: 'SP', city: 'Cidade teste', age: '', port: '', energy_level: '', independecie_level: '', environment: '' 
         });
 
         expect(pets).toHaveLength(6);
@@ -69,7 +69,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by age', async () => {
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: 'filhote', port: '', energy_level: '', independecie_level: '', environment: '' 
+            uf: 'SP', city: 'Cidade teste', age: 'filhote', port: '', energy_level: '', independecie_level: '', environment: '' 
         });
 
         expect(pets).toHaveLength(3);
@@ -77,7 +77,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by port', async () => {
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: '', port: 'pequeno', energy_level: '', independecie_level: '', environment: '' 
+            uf: 'SP', city: 'Cidade teste', age: '', port: 'pequeno', energy_level: '', independecie_level: '', environment: '' 
         });
 
         expect(pets).toHaveLength(3);
@@ -85,7 +85,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by energy_level', async () => {
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: '', port: '', energy_level: 'medio', independecie_level: '', environment: '' 
+            uf: 'SP', city: 'Cidade teste', age: '', port: '', energy_level: 'medio', independecie_level: '', environment: '' 
         });
 
         expect(pets).toHaveLength(3);
@@ -93,7 +93,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by independecie_level', async () => {
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: '', port: '', energy_level: '', independecie_level: 'baixo', environment: '' 
+            uf: 'SP', city: 'Cidade teste', age: '', port: '', energy_level: '', independecie_level: 'baixo', environment: '' 
         });
 
         expect(pets).toHaveLength(3);
@@ -101,7 +101,7 @@ describe('Fetch Pets Service', () => {
 
     it('Should fetch pets by environment', async () => {
         const pets = await sut.execute({ 
-            uf: 'SP', city: 'Estado Teste', age: '', port: '', energy_level: '', independecie_level: '', environment: 'grande' 
+            uf: 'SP', city: 'Cidade teste', age: '', port: '', energy_level: '', independecie_level: '', environment: 'grande' 
         });
 
         expect(pets).toHaveLength(3);

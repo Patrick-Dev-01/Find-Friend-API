@@ -28,7 +28,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply){
         const prismaOrgRepository = new PrismaOrgsRepository();
         const registerService = new RegisterService(prismaOrgRepository);
 
-        await registerService.execute({ name, email, password, phone, cep, address, neighborhood, complement, number, city, uf })
+        const org = await registerService.execute({ name, email, password, phone, cep, address, neighborhood, complement, number, city, uf })
+
+        return reply.status(201).send(org);
     } 
     
     catch (err) {
@@ -36,6 +38,4 @@ export async function register(request: FastifyRequest, reply: FastifyReply){
 
         throw err;
     }
-
-    return reply.status(201).send();
 }

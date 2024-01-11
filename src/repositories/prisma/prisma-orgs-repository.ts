@@ -13,11 +13,13 @@ export class PrismaOrgsRepository implements OrgsRepository{
             }
         });
 
-        if(!orgs){
-            return null;
+        if(orgs.length == 0){
+            return [];
         }
 
-        return orgs;
+        else{
+            return orgs;
+        }
     }
 
     async findByEmail(email: string){

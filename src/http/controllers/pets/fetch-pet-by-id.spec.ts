@@ -13,29 +13,30 @@ describe('Fetch Pet By Id (e2e)', () => {
     });
 
     it('Should Fetch Pet by Id', async () => {
-        await request(app.server).post('/orgs').send({
+        const createdOrg = await request(app.server).post('/orgs').send({
             name: 'Org Name',
             email: 'orgEmail@teste.com',
             phone: '11999999999',
             password: '123',
             address: 'Endereço teste',
             cep: '00000001',
-            city: 'Estado Teste',
+            city: 'Cidade teste',
             neighborhood: 'bairro Teste',
             complement: '',
             number: 1,
             uf: 'SP'
         });
 
-        const orgResponse = await request(app.server).post('/session').send({
+        const { id } = createdOrg.body.org;
+
+        const sessionResponse = await request(app.server).post('/session').send({
             email: 'orgEmail@teste.com',
             password: '123',
         });
 
-        const token = orgResponse.body.token;
+        const token = sessionResponse.body.token;
 
-        const pet = await request(app.server).post('/pet').set('Authorization', `Bearer ${token}`).send({
-            id: 'id_pet_1',
+        const createdPet = await request(app.server).post('/pet').set('Authorization', `Bearer ${token}`).send({
             name: "Pet Teste 1",
             about: "Sobre o Pet 1",
             age: "filhote",
@@ -43,10 +44,10 @@ describe('Fetch Pet By Id (e2e)', () => {
             energy_level: "Baixo",
             independencie_level: "Médio",
             environment: "Médio",
-            org_id: `org_id_1`,
+            org_id: `${id}`,
         });
 
-        const petResponse = await request(app.server).get('/pet').send('id_pet_1');
+        const petResponse = await request(app.server).get(`/pet/${createdPet.body.id}`).send();
 
         expect(petResponse.body).toEqual(expect.objectContaining({
             name: "Pet Teste 1",
@@ -56,7 +57,7 @@ describe('Fetch Pet By Id (e2e)', () => {
             energy_level: "Baixo",
             independencie_level: "Médio",
             environment: "Médio",
-            org_id: `${token.sub}`,
+            org_id: `${id}`,
         }));
     });
 });

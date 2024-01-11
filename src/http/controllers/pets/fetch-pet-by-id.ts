@@ -8,12 +8,15 @@ export async function fetchPetById(request: FastifyRequest, reply: FastifyReply)
         id: z.string(),
     });
 
-    const { id } = petSchema.parse(request.body);
+    const { id } = petSchema.parse(request.params);
 
     try {
         const prismaPetsRespository = new PrismaPetsRepository();
 
-        await prismaPetsRespository.findById(id);
+        const pet = await prismaPetsRespository.findById(id);
+
+        return reply.status(200).send(pet);
+        
     } catch (err) {
         if(err instanceof ResourceNotFoundError) return reply.status(400).send({ message: err.message });
 

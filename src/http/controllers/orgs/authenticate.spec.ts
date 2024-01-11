@@ -19,7 +19,7 @@ describe('Autheticate Org (e2e)', () => {
             password: '123',
             address: 'Endereço teste',
             cep: '00000001',
-            city: 'Estado Teste',
+            city: 'São Paulo',
             neighborhood: 'bairro Teste',
             complement: '',
             number: 1,
