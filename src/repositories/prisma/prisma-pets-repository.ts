@@ -24,24 +24,41 @@ export class PrismaPetsRepository implements PetsRepository{
     }
 
     async searchMany(orgs: Org[], age?: string, port?: string, energy_level?: string, independecie_level?: string, environment?: string) {
-        let strSQL: string = `SELECT *FROM pets as p JOIN orgs as o WHERE`;
+        let strSQL: string = '' ;
 
         orgs.map((org, i) => {
             if(i === orgs.length - 1){
-                strSQL += ` p.org_id = ${org.id} `;
+                strSQL += ` p.org_id = '${org.id}' `;
             }
 
             else{
-                strSQL += ` p.org_id = ${org.id} AND `;
+                strSQL += ` p.org_id = '${org.id}' AND `;
             }
         });
 
-        strSQL += `AND p.age = ${age} AND p.port = ${port} AND p.energy_level = ${energy_level} 
-            AND p.independecie_level = ${independecie_level} AND p.environment = ${environment}`;
+        if(age !== ''){
+            strSQL += `AND p.age = '${age}' `;
+        }
 
-        console.log(strSQL)
+        if(port !== ''){
+            strSQL += `AND p.port = '${port}' `;
+        }
+
+        if(energy_level !== ''){
+            strSQL += `AND p.energy_level = '${energy_level}' `;
+        }
+
+        if(environment !== ''){
+            strSQL += `AND p.environment = '${environment}' `;
+        }
+
+        if(independecie_level !== ''){
+            strSQL += `AND p.independencie_level = '${independecie_level}'`;
+        }
         
-        const pets = await prisma.$queryRaw<Pet[]>`${strSQL}`;
+        const pets = await prisma.$queryRawUnsafe<Pet[]>(`SELECT p.id, p.name, p.about, p.age, p.energy_level, 
+            p.independencie_level, p.environment, p.port, p.created_at, p.org_id FROM pets p
+             JOIN orgs o ON p.org_id = o.id AND ${strSQL}`);
 
         return pets;
     }

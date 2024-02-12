@@ -8,13 +8,14 @@ export async function fetchPets(request: FastifyRequest, reply: FastifyReply){
     const fetchPetsSchema = z.object({
         city: z.string(),
         uf: z.string(),
-        // age: z.string(),
-        // port: z.string(),
-        // independencie_level: z.string(),
-        // energy_level: z.string()
+        age: z.string().default(''),
+        port: z.string().default(''),
+        independencie_level: z.string().default(''),
+        energy_level: z.string().default(''),
+        environment: z.string().default('')
     });
 
-    const { city, uf } = fetchPetsSchema.parse(request.query);
+    const { city, uf, age, port, independencie_level, energy_level, environment } = fetchPetsSchema.parse(request.query);
 
     try {
         const prismaOrgsRepository = new PrismaOrgsRepository();
@@ -26,7 +27,7 @@ export async function fetchPets(request: FastifyRequest, reply: FastifyReply){
             return reply.status(400).send({ Error: "There's no Pets in this UF and City" })
         }
 
-        const pets = await prismaPetsRespository.searchMany(orgs);
+        const pets = await prismaPetsRespository.searchMany(orgs, age, port, independencie_level, energy_level, environment);
 
         return reply.status(200).send(pets);
         

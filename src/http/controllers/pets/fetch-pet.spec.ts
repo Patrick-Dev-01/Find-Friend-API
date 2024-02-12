@@ -13,7 +13,7 @@ describe('Fetch Pets (e2e)', () => {
     });
 
     it('Should Fetch Pets By UF and City', async () => {
-        await request(app.server).post('/orgs').send({
+        const createdOrg = await request(app.server).post('/orgs').send({
             name: 'Org Name 1',
             email: 'orgEmail@teste1.com',
             phone: '11999999999',
@@ -27,32 +27,24 @@ describe('Fetch Pets (e2e)', () => {
             uf: 'SP'
         });
 
-        await request(app.server).post('/orgs').send({
-            name: 'Org Name 2',
-            email: 'orgEmail@teste2.com',
-            phone: '11999999999',
+        const { id } = createdOrg.body.org;
+
+        const sessionResponse = await request(app.server).post('/session').send({
+            email: 'orgEmail@teste1.com',
             password: '123',
-            address: 'Endereço teste 2',
-            cep: '00000001',
-            city: 'São Paulo',
-            neighborhood: 'bairro Teste 2',
-            complement: '',
-            number: 2,
-            uf: 'SP'
         });
 
-        await request(app.server).post('/orgs').send({
-            name: 'Org Name 3',
-            email: 'orgEmail@teste3.com',
-            phone: '11999999999',
-            password: '123',
-            address: 'Endereço teste 3',
-            cep: '00000001',
-            city: 'Rio de Janeiro',
-            neighborhood: 'Bairro Teste 3',
-            complement: '',
-            number: 3,
-            uf: 'RJ'
+        const token = sessionResponse.body.token;
+
+        await request(app.server).post('/pet').set('Authorization', `Bearer ${token}`).send({
+            name: "Pet Teste",
+            about: "Sobre o Pet Teste",
+            age: "filhote",
+            port: "médio",
+            energy_level: "Baixo",
+            independencie_level: "Médio",
+            environment: "Médio",
+            org_id: `${id}`,
         });
 
         const petsResponse = await request(app.server).get('/pet').query({
@@ -61,9 +53,10 @@ describe('Fetch Pets (e2e)', () => {
             age: '',
             port: '',
             independencie_level: '',
-            energy_level: ''
+            energy_level: '',
+            environment: '',
         }).send();
     
-        expect(petsResponse.body).toHaveLength(2);
+        expect(petsResponse.body).toHaveLength(1);
     });
 });

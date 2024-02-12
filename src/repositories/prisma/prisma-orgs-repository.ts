@@ -7,12 +7,10 @@ export class PrismaOrgsRepository implements OrgsRepository{
         const orgs = await prisma.org.findMany({
             where: {
                 uf: uf,
-                AND: {
-                    city: city
-                }
+                city: city
             }
         });
-
+        
         if(orgs.length == 0){
             return [];
         }
