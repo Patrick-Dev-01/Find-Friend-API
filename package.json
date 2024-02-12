@@ -7,9 +7,9 @@
     "test": "vitest run",
     "test:unit": "vitest run --dir src/services",
     "test:watch": "vitest --dir src/services",
+    "test:e2e": "vitest run --dir src/http",
     "watch": "vitest --dir src/services",
     "dev": "tsx watch src/server.ts",
-    "test:e2e": "vitest run --dir src/http",
     "build": "tsup src --out-dir build"
   },
   "keywords": [],
